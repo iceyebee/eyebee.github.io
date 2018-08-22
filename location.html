@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Location</title>
+    <script>
+    function initMap(){
+        //display map
+        let map = new google.maps.Map(document.querySelector("#map"), {
+            center:{lat:24, lng:121},
+            zoom: 8
+        });
+        //get geographical location
+        navigator.geolocation.getCurrentPosition(function(result){
+            console.log("Result", result);
+            let myLatLng = {
+                lat: result.coords.latitude,
+                lng: result.coords.longitude
+            };
+            new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'current location'
+            });
+        }, function(error){
+            console.log("Error", error);
+        });
+    };
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+    async defer></script>
+</head>
+<body>
+    <h3>Location</h3>
+    <div id="map" style="width:800px; height:600px;"></div>
+</body>
+</html>
